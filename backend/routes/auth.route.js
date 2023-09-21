@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const { createUser, loginUser, forgotPassword, resetPassword } = require('../controllers/Auth.controller');
+const { createUser, loginUser, forgotPassword, resetPassword } = require('../controllers/auth.controller');
 const { checkUsernameOrEmail } = require('../middlewares/verify-signup');
 
-router.post('/signup', checkUsernameOrEmail, createUser);
-router.post('/signin', loginUser);
+router.post('/sign-up', checkUsernameOrEmail, createUser);
+router.post('/sign-in', loginUser);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 
