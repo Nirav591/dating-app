@@ -9,7 +9,7 @@ const apiConfig = {
   },
 };
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem('token');
 if (token) {
   apiConfig.headers['Content-Type'] = 'multipart/form-data';
   apiConfig.headers['Authorization'] = 'ABCDE';
