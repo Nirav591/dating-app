@@ -11,11 +11,13 @@ const handleDatabaseError = (res, err) => {
 
 exports.addVideo = async (req, res) => {
   try {
-    const { title } = req.body;
-    const { filename } = req.file;
-    const filePath = `uploads/${filename}`;
+    const { title, category } = req.body;
+    const { filename: videoFilename } = req.files.video[0];
+    const videoFilePath = `uploads/${videoFilename}`;
+    const { filename: imageFilename } = req.files.image[0];
+    const imageFilePath = `uploads/${imageFilename}`;
 
-    pool.query('INSERT INTO video (title, video) VALUES (?, ?)', [title, filePath], (err, result) => {
+    pool.query('INSERT INTO video (title, category, video, image) VALUES (?, ?, ?, ?)', [title, category, videoFilePath, imageFilePath], (err, result) => {
       if (err) {
         return handleDatabaseError(res, err);
       }
@@ -57,21 +59,53 @@ exports.deleteVideo = (req, res) => {
 
 exports.updateVideo = async (req, res) => {
   try {
-    const { title } = req.body;
+    const { title, category } = req.body;
     const videoId = req.params.id;
 
-    if (req.file) {
-      const { filename } = req.file;
-      const filePath = `uploads/${filename}`;
+    if (req.files && req.files.video && req.files.image) {
+      const { filename: videoFilename } = req.files.video[0];
+      const videoFilePath = `uploads/${videoFilename}`;
+      const { filename: imageFilename } = req.files.image[0];
+      const imageFilePath = `uploads/${imageFilename}`;
 
-      pool.query('UPDATE video SET title = ?, video = ? WHERE id = ?', [title, filePath, videoId], (err, result) => {
+      pool.query('UPDATE video SET title = ?, category = ?, video = ?, image = ? WHERE id = ?', [title, category, videoFilePath, imageFilePath, videoId], (err, result) => {
         if (err) {
           return handleDatabaseError(res, err);
         }
         return res.status(200).json({ message: 'Video updated successfully!' });
       });
+
+    } else if (req.files && req.files.video && !req.files.image) {
+      const { filename: videoFilename } = req.files.video[0];
+      const videoFilePath = `uploads/${videoFilename}`;
+
+      pool.query(
+        'UPDATE video SET title = ?, category = ?, video = ? WHERE id = ?',
+        [title, category, videoFilePath, videoId],
+        (err, result) => {
+          if (err) {
+            return handleDatabaseError(res, err);
+          }
+          return res.status(200).json({ message: 'Video updated successfully!' });
+        }
+      );
+
+    } else if (req.files && req.files.image && !req.files.video) {
+      const { filename: imageFilename } = req.files.image[0];
+      const imageFilePath = `uploads/${imageFilename}`;
+
+      pool.query(
+        'UPDATE video SET title = ?, category = ?, image = ? WHERE id = ?',
+        [title, category, imageFilePath, videoId],
+        (err, result) => {
+          if (err) {
+            return handleDatabaseError(res, err);
+          }
+          return res.status(200).json({ message: 'Video updated successfully!' });
+        }
+      );      
     } else {
-      pool.query('UPDATE video SET title = ? WHERE id = ?', [title, videoId], (err, result) => {
+      pool.query('UPDATE video SET title = ?, category = ? WHERE id = ?', [title, category, videoId], (err, result) => {
         if (err) {
           return handleDatabaseError(res, err);
         }

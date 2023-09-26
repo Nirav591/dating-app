@@ -10,12 +10,12 @@ export default function AccountPopover () {
 
   const content = (
     <div>
-      <p>Profile</p>
-      <p onClick={() => {
+      <div style={{marginBottom:5}}>Profile</div>
+      <div onClick={() => {
               window.localStorage.removeItem('token');
               navigate('/login');
             }}
-            >Log Out</p>
+            >Log Out</div>
     </div>
   );
 

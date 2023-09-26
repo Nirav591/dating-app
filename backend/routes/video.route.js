@@ -18,10 +18,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/', upload.single('video'), addVideo);
+router.post('/', upload.fields([{ name: 'video', maxCount: 1 }, { name: 'image', maxCount: 1 }]), addVideo);
 router.get('/:id', getVideoById);
 router.get('/', getVideos);
 router.delete('/:id', deleteVideo);
-router.put('/:id', upload.single('video'), updateVideo);
+router.put('/:id', upload.fields([{ name: 'video', maxCount: 1 }, { name: 'image', maxCount: 1 }]), updateVideo);
 
 module.exports = router;

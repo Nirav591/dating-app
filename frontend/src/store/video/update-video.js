@@ -1,8 +1,8 @@
-import { updateVideo } from '../../api/update-video';
+import { updateVideo } from '../../api/video/update-video';
 
-export const updateVideoFile = async(payload, id, callBack) => {
+export const updateVideoFile = async({formData, id}, callBack) => {
     try {
-      const response = await updateVideo(payload, id);
+      const response = await updateVideo({formData, id});
       callBack && callBack(response);  
 
     } catch (error) {

@@ -1,17 +1,15 @@
-import React from 'react';
-import { Button, Divider, Form, Input, notification } from 'antd';
+import React, { useState } from 'react';
+import { Button, Divider, Input, notification } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../store/auth/sign-in';
+import { Formik, Form, Field } from 'formik';
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
 export default function SignIn () {
   const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const openNotification = (placement, message) => {
     api.info({
@@ -35,7 +33,7 @@ export default function SignIn () {
   };
 
   const onFinish = async(values) => {
-    await loginUser(values.user, callBack)    
+    await loginUser(values, callBack)    
   }
 
   return (
@@ -61,35 +59,56 @@ export default function SignIn () {
       alignItems: 'center',marginBottom:"20px", fontSize:"25px"}}>
         Login
     </div>
+    
+    <Formik
+      initialValues={{
+        email:'',
+        password:'',
+      }}
+      onSubmit={onFinish}
+    >
+    {(formik) => (
+    <form onSubmit={formik.handleSubmit}>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <Field
+          type="text"
+          name="email"
+          as={Input}
+          placeholder="Email"
+          style={{ marginTop: 5 }}
+        />
+      </div>
+
+      <div style={{ marginTop: 10 }}>
+        <label htmlFor="password">Password:</label>
+        <Field
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          as={Input.Password}
+          placeholder="Password"
+          iconRender={(visible) =>
+            visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
+          }
+          style={{ marginTop: 5 }}
+        />
+      </div>
+      <Divider/>
+
+      <div style={{ display:"flex", flexDirection:'column'}}>     
+      <Link to='/forgot-password'>   
+        Forgot Password
+      </Link>
   
-  <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{ maxWidth: 600 }}
-  >
-   
-    <Form.Item name={['user', 'email']} label="Email" rules={[{ required: true, message: 'Please enter email!' }]}>
-      <Input />
-    </Form.Item>
-    <Form.Item name={['user', 'password']} label="Password" rules={[{ required: true, message: 'Please enter password!'}]}>
-    <Input.Password
-      iconRender={(visible) =>
-        visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
-      }
-    />
-    </Form.Item>
-    <Divider/>
-    <Link to='/forgot-password'>   
-      Forgot Password
-    </Link>
-  
-    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-      <Button type="primary" htmlType="submit" style={{marginTop:"20px"}}>
+      <Button type="primary" htmlType="submit" style={{ marginTop: 10 }}>
         Login
       </Button>
-    </Form.Item>
-  </Form>
+      </div>
+
+      </form>
+    )}
+    </Formik>
+    
   </div>
   </div>
   </>

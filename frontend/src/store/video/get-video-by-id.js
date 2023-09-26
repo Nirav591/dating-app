@@ -1,6 +1,6 @@
-import { fetchVideoById } from '../../api/fetch-video-by-id';
+import { fetchVideoById } from '../../api/video/fetch-video-by-id';
 
-export const getVideoById = async(callBack, id) => {
+export const getVideoById = async({callBack, id}) => {
     try {
       const response = await fetchVideoById(id);
       callBack && callBack(response);  

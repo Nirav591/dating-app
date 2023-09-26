@@ -19,21 +19,23 @@ export default function AddVideo () {
       openNotification('topRight', 'Video added successfully!')
       setTimeout(() => {
         navigate('/video');
-      }, 3000);
+      }, 1000);
     } else {
       openNotification('topRight', 'Fail to add Video!')   
       setTimeout(() => {
         navigate('/video');
-      }, 3000);
+      }, 1000);
     }
   };
 
   const onFinish = async(values) => {   
     console.log(values,"values");
-    if (values.video) {
+    if (values.video && values.img) {
       const formData = new FormData();
       formData.append('video', values.video[0].originFileObj);
       formData.append('title', values.title);
+      formData.append('category', values.category);
+      formData.append('image', values.img[0].originFileObj);
 
     await addVideoFile(formData, callBack);
     }
@@ -58,7 +60,7 @@ export default function AddVideo () {
       <Form.Item
         label="Title"
         name="title"
-        rules={[{ required: true, message: 'Please enter title for video!' }]}
+        rules={[{ required: true, message: 'Please enter title!' }]}
       >
         <Input />
       </Form.Item>
@@ -72,6 +74,26 @@ export default function AddVideo () {
       >
         <Upload name="video" listType="video" beforeUpload={() => false}>
           <Button icon={<UploadOutlined />}>Upload Video</Button>
+        </Upload>
+      </Form.Item>
+
+      <Form.Item
+        label="Category"
+        name="category"
+        rules={[{ required: true, message: 'Please enter Category!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Image"
+        name="img"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+        rules={[{ required: true, message: 'Please select image!' }]}
+      >
+        <Upload name="img" listType="image" beforeUpload={() => false}>
+          <Button icon={<UploadOutlined />}>Upload Image</Button>
         </Upload>
       </Form.Item>
       

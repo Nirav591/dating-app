@@ -1,5 +1,5 @@
 import React from 'react';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { UserOutlined, VideoCameraOutlined, GoogleOutlined, FacebookOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { Outlet } from 'react-router-dom'; 
 import AccountPopover from './account-popover';
@@ -27,13 +27,18 @@ export default function DashboardLayout() {
         <Menu
           theme="light"
           mode="inline"
-          defaultSelectedKeys={['2']}
         >
-          <Menu.Item key="1" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<UserOutlined style={{fontSize:18, color:"grey"}}/>}>
             <Link >User</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+          <Menu.Item key="2" icon={<VideoCameraOutlined style={{fontSize:18, color:"grey"}}/>}>
             <Link to="/video">Video</Link>
+          </Menu.Item>
+          <Menu.Item key="3" icon={<GoogleOutlined style={{fontSize:18, color:"grey"}}/>}>
+            <Link to="/google-ads">Google Ads</Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<FacebookOutlined style={{fontSize:18, color:"grey"}}/>}>
+            <Link to="/facebook-ads">Facebook Ads</Link>
           </Menu.Item>
        </Menu>
 

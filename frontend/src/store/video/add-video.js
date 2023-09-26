@@ -1,4 +1,4 @@
-import { addVideo } from '../../api/add-video';
+import { addVideo } from '../../api/video/add-video';
 
 export const addVideoFile = async(payload, callBack) => {
     try {

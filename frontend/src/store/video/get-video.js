@@ -1,4 +1,4 @@
-import { fetchVideoList } from '../../api/fetch-videos';
+import { fetchVideoList } from '../../api/video/fetch-videos';
 
 export const fetchAllVideos = async(callBack, token) => {
     try {

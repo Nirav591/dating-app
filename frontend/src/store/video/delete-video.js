@@ -1,6 +1,6 @@
-import { deleteVideo } from '../../api/delete-video';
+import { deleteVideo } from '../../api/video/delete-video';
 
-export const deleleVideoFile = async(callBack, id) => {
+export const deleteVideoFile = async(id, callBack) => {
     try {
       const response = await deleteVideo(id);
       callBack && callBack(response);  
