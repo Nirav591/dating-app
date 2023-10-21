@@ -68,12 +68,12 @@ exports.updateVideo = async (req, res) => {
 
     if (req.files) {
       let videoQuery = '';
-      const queryParams = [title, category, videoId];
+      const queryParams = [title, category];
 
       if (req.files.video) {
         const { filename: videoFilename } = req.files.video[0];
         const videoFilePath = `uploads/${videoFilename}`;
-        videoQuery = 'video = ?';
+        videoQuery += 'video = ?';
         queryParams.push(videoFilePath);
       }
 
@@ -84,6 +84,8 @@ exports.updateVideo = async (req, res) => {
         videoQuery += 'image = ?';
         queryParams.push(imageFilePath);
       }
+
+      queryParams.push(videoId);
 
       if (videoQuery) {
         const updateVideoQuery = `UPDATE video SET title = ?, category = ?, ${videoQuery} WHERE id = ?`;

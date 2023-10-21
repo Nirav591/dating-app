@@ -3,7 +3,6 @@ import { Input, Button, Space, Switch, notification } from 'antd';
 import { Formik, Field, Form } from 'formik';
 import { updateGoogleAdsById } from '../store/google-ads/update-google-ads';
 import { getGoogleAds } from '../store/google-ads/fetch-google-ads';
-import { addGoogleAd } from '../store/google-ads/add-google-ads';
 
 
 function GoogleAdsList() {
@@ -14,21 +13,9 @@ function GoogleAdsList() {
   const openNotification = (placement, message) => {
     api.info({ message, placement });
   };
-
-  const addCallBack = (response) => {
-    if (response.message === 'Google ads added successfully') {
-      openNotification('topRight', 'Google Ads updated successfully!');
-    } else {
-      openNotification('topRight', 'Fail to update Google ads!');
-    }
-  };
-
+ 
   const onFinish = async (values) => {
-    if (googleAd) {
-      await updateGoogleAdsById({ googleAds: values}, callback);
-    } else {
-      await addGoogleAd({ googleAds: values }, addCallBack);
-    }
+      await updateGoogleAdsById({ googleAds: values}, callback);   
   };
 
   const callback = (response) => {
@@ -89,12 +76,12 @@ function GoogleAdsList() {
         onSubmit={onFinish}
       >
       {(formik) => (
-        <Form>
-      <Space style={{ fontSize: '17px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
-      Google Ads
-      </Space>
-      
-      <div>
+      <Form>
+        <Space style={{ fontSize: '17px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+        Google Ads
+        </Space>
+        
+        <div>
             <label htmlFor="googleAds.app_open">App Open :</label>
             <Field
               type="text"

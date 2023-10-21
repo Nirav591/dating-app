@@ -34,10 +34,13 @@ export default function DashboardLayout() {
           <Menu.Item key="2" icon={<VideoCameraOutlined style={{fontSize:18, color:"grey"}}/>}>
             <Link to="/video">Video</Link>
           </Menu.Item>
-          <Menu.Item key="3" icon={<GoogleOutlined style={{fontSize:18, color:"grey"}}/>}>
+          <Menu.Item key="3" icon={<VideoCameraOutlined style={{fontSize:18, color:"grey"}}/>}>
+            <Link to="/premium-video">Premium Video</Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<GoogleOutlined style={{fontSize:18, color:"grey"}}/>}>
             <Link to="/google-ads">Google Ads</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<FacebookOutlined style={{fontSize:18, color:"grey"}}/>}>
+          <Menu.Item key="5" icon={<FacebookOutlined style={{fontSize:18, color:"grey"}}/>}>
             <Link to="/facebook-ads">Facebook Ads</Link>
           </Menu.Item>
        </Menu>

@@ -31,7 +31,7 @@ export default function VideoList() {
 
   const deleteCallback = (response) => {
     if(response.message === 'Video deleted successfully'){
-      openNotification('topRight', 'App deleted successfully!') 
+      openNotification('topRight', 'Video deleted successfully!') 
     }
   };
 
@@ -69,7 +69,7 @@ export default function VideoList() {
       return (
         <Card
          key={video.id}
-         style={{ width: 300, marginRight: '23px', marginBottom: '10px' }}
+         style={{ width: 300, marginRight: '20px', marginBottom: '10px' }}
          cover={
           <ReactPlayer playing url={`${baseURL}/${video.video}`}
           height='200px'

@@ -3,7 +3,6 @@ import { Input, Button, Space, Switch, notification } from 'antd';
 import { Formik, Field, Form } from 'formik';
 import { updateFacebookAdsById } from '../store/facebook-ads/update-google-ads';
 import { getFacebookAds } from '../store/facebook-ads/fetch-facebook-ads';
-import { addFacebookAd } from '../store/facebook-ads/add-facebook-ads';
 
 
 function FacebookAdsList() {
@@ -15,20 +14,8 @@ function FacebookAdsList() {
     api.info({ message, placement });
   };
 
-  const addCallBack = (response) => {
-    if (response.message === 'Facebook ads added successfully') {
-      openNotification('topRight', 'Facebook Ads updated successfully!');
-    } else {
-      openNotification('topRight', 'Fail to update Facebook ads!');
-    }
-  };
-
   const onFinish = async (values) => {
-    if (facebookAd) {
-      await updateFacebookAdsById({ facebookAds: values}, callback);
-    } else {
-      await addFacebookAd({ facebookAds: values }, addCallBack);
-    }
+      await updateFacebookAdsById({ facebookAds: values}, callback);   
   };
 
   const callback = (response) => {

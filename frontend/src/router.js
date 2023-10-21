@@ -8,6 +8,9 @@ import AddVideo from './components/add-video';
 import EditVideoForm from './components/edit-video';
 import GoogleAdsList from './page/google-ads';
 import FacebookAdsList from './page/facebook-ads';
+import PremiumVideoList from './page/premium-video-list';
+import EditPremiumVideoForm from './components/edit-premium-video';
+import AddPremiumVideo from './components/add-premium-video';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -21,6 +24,9 @@ export default function Router() {
         { path: 'video', element: <VideoList /> },
         { path: 'video/edit-video/:id', element: <EditVideoForm /> },
         { path: 'add-video', element: <AddVideo/> },
+        { path: 'premium-video', element: <PremiumVideoList /> },
+        { path: 'premium-video/edit-premium-video/:id', element: <EditPremiumVideoForm /> },
+        { path: 'add-premium-video', element: <AddPremiumVideo/> },
         { path: 'google-ads', element: <GoogleAdsList /> },
         { path: 'facebook-ads', element: <FacebookAdsList /> },
       ],

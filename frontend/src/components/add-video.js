@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Upload, Space, notification } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,8 @@ export default function AddVideo () {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const openNotification = (placement, message) => {
     api.info({ message, placement });
   };
@@ -29,8 +30,8 @@ export default function AddVideo () {
   };
 
   const onFinish = async(values) => {   
-    console.log(values,"values");
     if (values.video && values.img) {
+      setIsSubmitting(true);
       const formData = new FormData();
       formData.append('video', values.video[0].originFileObj);
       formData.append('title', values.title);
@@ -38,6 +39,9 @@ export default function AddVideo () {
       formData.append('image', values.img[0].originFileObj);
 
     await addVideoFile(formData, callBack);
+    setTimeout(()=>{
+      setIsSubmitting(false);
+    },1000);
     }
   };
 
@@ -98,7 +102,7 @@ export default function AddVideo () {
       </Form.Item>
       
       <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" disabled={isSubmitting}>
           Add Video
         </Button>
       </Form.Item>

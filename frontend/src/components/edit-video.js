@@ -56,8 +56,10 @@ export default function EditVideoForm() {
   };
 
   const onFinish = async (values) => {
+    
     const formData = new FormData();
     if (selectedFile && !selectedImage) {
+      console.log(selectedFile);
       formData.append('video', selectedFile);
       formData.append('title', values.title);
       formData.append('category', values.category);
