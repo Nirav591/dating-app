@@ -23,6 +23,7 @@ export default function VideoList() {
   const callBack = (response) => {
     const data = response;
     setVideos(data);
+    console.log(data,'data');
   };
 
   const addAndFetch = async () => {
@@ -95,9 +96,9 @@ export default function VideoList() {
           >
             <p>Are you sure you want to delete this video? This action cannot be undone.</p>
           </Modal>
-          <Meta
-           title={video.title}
-          />
+          {/* <Meta
+          //  title={video.title}
+          /> */}
         </Card>
       )})}
     </div>

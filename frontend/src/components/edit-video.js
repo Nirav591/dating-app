@@ -58,26 +58,34 @@ export default function EditVideoForm() {
   const onFinish = async (values) => {
     
     const formData = new FormData();
-    if (selectedFile && !selectedImage) {
-      console.log(selectedFile);
+    if (selectedFile) {
       formData.append('video', selectedFile);
-      formData.append('title', values.title);
-      formData.append('category', values.category);
-    } else if (!selectedFile && selectedImage) {
-      formData.append('image', selectedImage);
-      formData.append('title', values.title);
-      formData.append('category', values.category);
-    } else if (selectedFile && selectedImage) {
-      formData.append('video', selectedFile);
-      formData.append('image', selectedImage);
-      formData.append('title', values.title);
-      formData.append('category', values.category);
-    } else {
-      formData.append('title', values.title);
-      formData.append('category', values.category);
     }
     await updateVideoFile({ formData, id: newVideoData.id }, callback);
   };
+  // const onFinish = async (values) => {
+    
+  //   const formData = new FormData();
+  //   if (selectedFile && !selectedImage) {
+  //     console.log(selectedFile);
+  //     formData.append('video', selectedFile);
+  //     formData.append('title', values.title);
+  //     formData.append('category', values.category);
+  //   } else if (!selectedFile && selectedImage) {
+  //     formData.append('image', selectedImage);
+  //     formData.append('title', values.title);
+  //     formData.append('category', values.category);
+  //   } else if (selectedFile && selectedImage) {
+  //     formData.append('video', selectedFile);
+  //     formData.append('image', selectedImage);
+  //     formData.append('title', values.title);
+  //     formData.append('category', values.category);
+  //   } else {
+  //     formData.append('title', values.title);
+  //     formData.append('category', values.category);
+  //   }
+  //   await updateVideoFile({ formData, id: newVideoData.id }, callback);
+  // };
   const callback = (response) => {
     if (response.message === 'Video updated successfully!') {
       navigate('/video');
@@ -86,9 +94,10 @@ export default function EditVideoForm() {
 
   const callBack = (response) => {
     const data = response;
+    console.log(data,'updated');
     setNewData(data);
     setVideo(data[0].video);
-    setImg(data[0].image);
+    // setImg(data[0].image);
   };
 
   const addAndFetch = async () => {
@@ -108,8 +117,8 @@ export default function EditVideoForm() {
           onFinish={onFinish}
           initialValues={{
             id: newVideoData.id,
-            title: newVideoData.title,
-            category: newVideoData.category,
+            // title: newVideoData.title,
+            // category: newVideoData.category,
           }}
         >
           <Space
@@ -166,7 +175,7 @@ export default function EditVideoForm() {
               />
             </div>
 
-            <div
+            {/* <div
               style={{
                 position: 'relative',
                 width: '180px',
@@ -200,16 +209,16 @@ export default function EditVideoForm() {
                   padding: 3,
                 }}
               />
-            </div>
+            </div> */}
           </div>
 
-          <Form.Item label='Title' name='title'>
+          {/* <Form.Item label='Title' name='title'>
             <Input />
           </Form.Item>
 
           <Form.Item label='Category' name='category'>
             <Input />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item>
             <Button type='primary' htmlType='submit'>
